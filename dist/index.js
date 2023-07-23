@@ -98743,6 +98743,8 @@ const run = () => {
     chart.setOption(JSON.parse(chartOption));
     core.setOutput('svg', chart.renderToSVGString());
 
+    core.info(chart.renderToSVGString());
+
     core.info('Done');
     process.exit(0);
 }
