@@ -14,3 +14,4 @@ const chart = echarts.init(null, null, {
 
 chart.setOption(JSON.parse(chartOption));
 core.setOutput('svg', chart.renderToSVGString());
+process.exit(0);
