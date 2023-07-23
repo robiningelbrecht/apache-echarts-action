@@ -5,20 +5,24 @@ const width = core.getInput('width');
 const height =  core.getInput('height');
 const chartOption =  core.getInput('chart-option');
 
-core.info('Step 1');
+const run = () => {
+    core.info('Step 1');
 
-const chart = echarts.init(null, null, {
-    renderer: 'svg',
-    ssr: true,
-    width: width,
-    height: height
-});
+    const chart = echarts.init(null, null, {
+        renderer: 'svg',
+        ssr: true,
+        width: width,
+        height: height
+    });
 
-core.info('Step 2');
+    core.info('Step 2');
 
-chart.setOption(JSON.parse(chartOption));
-core.info('Step 3');
-core.setOutput('svg', chart.renderToSVGString());
-core.info('Step 4');
-process.exit(0);
-core.info('Step 5');
+    chart.setOption(JSON.parse(chartOption));
+    core.info('Step 3');
+    core.setOutput('svg', chart.renderToSVGString());
+    core.info('Step 4');
+    process.exit(0);
+    core.info('Step 5');
+
+}
+run();
