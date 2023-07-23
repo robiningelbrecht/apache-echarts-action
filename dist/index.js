@@ -98732,7 +98732,7 @@ const height =  core.getInput('height');
 const chartOption =  core.getInput('chart-option');
 
 const run = () => {
-    core.info('Step 1');
+    core.info('Generating SVG');
 
     const chart = echarts.init(null, null, {
         renderer: 'svg',
@@ -98740,14 +98740,11 @@ const run = () => {
         width: width,
         height: height
     });
-
-    core.info('Step 2');
-
     chart.setOption(JSON.parse(chartOption));
-    core.info('Step 3');
     core.setOutput('svg', chart.renderToSVGString());
-    core.info('Step 4');
 
+    core.info('Done');
+    process.exit(0);
 }
 run();
 })();
