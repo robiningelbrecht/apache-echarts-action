@@ -98747,8 +98747,6 @@ const run = () => {
     core.info('Step 3');
     core.setOutput('svg', chart.renderToSVGString());
     core.info('Step 4');
-    process.exit(0);
-    core.info('Step 5');
 
 }
 run();
