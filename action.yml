@@ -1,0 +1,21 @@
+name: Apache Echarts action
+description: Render server-side Apache Echarts using GitHub Action workflow
+branding:
+  icon: 'pie-chart'
+  color: 'blue'
+inputs:
+  width:
+    description: width of the SVG
+    required: true
+  height:
+    description: height of the SVG
+    required: true
+  chart-option:
+    description: the chart options, see https://echarts.apache.org/handbook/en/get-started/
+    required: true
+outputs:
+  svg:
+    description: 'The created SVG'
+runs:
+  using: 'node16'
+  main: 'dist/index.js'

@@ -1,0 +1,30 @@
+{
+  "name": "apache-echarts-action",
+  "version": "1.0.0",
+  "description": "Render server-side Apache Echarts using GitHub Action workflow",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/robiningelbrecht/apache-echarts-action.git"
+  },
+  "keywords": [
+    "GitHub",
+    "Actions",
+    "JavaScript",
+    "Apache Echarts",
+    "Charts"
+  ],
+  "author": "Robin Ingelbrecht",
+  "license": "MIT",
+  "scripts": {
+    "build": "ncc build index.js --license licenses.txt"
+  },
+  "bugs": {
+    "url": "https://github.com/robiningelbrecht/apache-echarts-action/issues"
+  },
+  "homepage": "https://github.com/robiningelbrecht/apache-echarts-action#readme",
+  "dependencies": {
+    "@actions/core": "^1.10.0",
+    "echarts": "^5.4.3"
+  }
+}

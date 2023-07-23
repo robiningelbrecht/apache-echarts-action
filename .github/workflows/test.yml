@@ -1,0 +1,17 @@
+name: Test workflow
+on: [workflow_dispatch]
+
+jobs:
+  test-job:
+    runs-on: ubuntu-latest
+    name: Test job
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: apache-echarts-action test
+        uses: ./
+        with:
+          width: 1000
+          height: 300
+          chart-option: '{"xAxis":{"type":"category","data":["Mon","Tue","Wed","Thu","Fri","Sat","Sun"]},"yAxis":{"type":"value"},"series":[{"data":[150,230,224,218,135,147,260],"type":"line"}]}'
