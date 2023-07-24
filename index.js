@@ -42,13 +42,13 @@ const run = async () => {
 
     if (passOptionsAs === 'string') {
         if (!isValidJsonString(chartOptions)) {
-            core.error('Invalid JSON for chartOptions');
+            core.setFailed('Invalid JSON for chartOptions');
             return;
         }
         chartOptions = JSON.parse(chartOptions);
     } else if (passOptionsAs === 'uri') {
         if (!isValidHttpUrl(chartOptions)) {
-            core.error('Invalid URI for chartOptions');
+            core.setFailed('Invalid URI for chartOptions');
             return;
         }
         const response = await axios({method: 'GET', url: chartOptions});
@@ -56,12 +56,12 @@ const run = async () => {
     } else if (passOptionsAs === 'file') {
         const data = fs.readFileSync(chartOptions);
         if (!isValidJsonString(data)) {
-            core.error('Invalid JSON for chartOptions');
+            core.setFailed('Invalid JSON for chartOptions');
             return;
         }
         chartOptions = JSON.parse(data);
     } else {
-        core.error('Invalid option for pass-options-as');
+        core.setFailed('Invalid option for pass-options-as');
         return;
     }
 
@@ -69,7 +69,7 @@ const run = async () => {
         chart.setOption(chartOptions);
         core.setOutput('svg', chart.renderToSVGString());
     } catch (e) {
-        core.error(e);
+        core.setFailed(e);
         return;
     }
 
