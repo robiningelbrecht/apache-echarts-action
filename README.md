@@ -12,9 +12,17 @@ Render server-side Apache Echarts using GitHub Action workflow
 
 **Required** Height of the SVG
 
+### `pass-options-as`
+
+**Required** The way you want to pass the options, valid options are
+
+- string
+- uri
+- file
+
 ### `chart-option`
 
-**Required** The chart options, can be one od
+**Required** The chart options, can be one of
 * Valid JSON string 
 * URI to valid JSON
 
@@ -29,11 +37,14 @@ Check https://echarts.apache.org/handbook/en/get-started/ for more info
   with:
     width: 1000
     height: 300
-    chart-option: 'valid JSON string or URI to valid JSON'
+    pass-options-as: uri
+    chart-option: 'valid JSON string, URI to valid JSON or reference to file with valid JSON'
 
 - name: Save generated SVG
   run: |
-  cat <<EOF > chart.svg
-  ${{ steps.chart.outputs.svg }}
-  EOF
+      cat <<EOF > chart.svg
+      ${{ steps.chart.outputs.svg }}
+      EOF
 ```
+
+For actual examples, check the `test.yml` workflow.

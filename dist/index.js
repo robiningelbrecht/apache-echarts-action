@@ -105288,10 +105288,12 @@ var __webpack_exports__ = {};
 const core = __nccwpck_require__(879);
 const echarts = __nccwpck_require__(1192);
 const axios = __nccwpck_require__(1539);
+const fs = __nccwpck_require__(7147);
 
 const width = core.getInput('width');
 const height = core.getInput('height');
-let chartOption = core.getInput('chart-option');
+const passOptionsAs = core.getInput('pass-options-as');
+let chartOptions = core.getInput('chart-option');
 
 const isValidHttpUrl = (str) => {
     const pattern = new RegExp(
@@ -105325,20 +105327,37 @@ const run = async () => {
         height: height
     });
 
-    if (isValidHttpUrl(chartOption)) {
-        const response = await axios({method: 'GET', url: chartOption});
-        chartOption = await response.data;
-    } else if (isValidJsonString(chartOption)) {
-        chartOption = JSON.parse(chartOption);
+    if (passOptionsAs === 'string') {
+        if (!isValidJsonString(chartOptions)) {
+            core.error('Invalid JSON for chartOptions');
+            return;
+        }
+        chartOptions = JSON.parse(chartOptions);
+    } else if (passOptionsAs === 'url') {
+        if (!isValidHttpUrl(chartOptions)) {
+            core.error('Invalid URI for chartOptions');
+            return;
+        }
+        const response = await axios({method: 'GET', url: chartOptions});
+        chartOptions = await response.data;
+    } else if (passOptionsAs === 'file') {
+        const data = fs.readFileSync(chartOptions);
+        if (!isValidJsonString(data)) {
+            core.error('Invalid JSON for chartOptions');
+            return;
+        }
+        chartOptions = JSON.parse(data);
     } else {
-        core.error('Invalid JSON for chartOption');
+        core.error('Invalid option for pass-options-as');
+        return;
     }
 
-    try{
-        chart.setOption(chartOption);
+    try {
+        chart.setOption(chartOptions);
         core.setOutput('svg', chart.renderToSVGString());
     } catch (e) {
         core.error(e);
+        return;
     }
 
     core.info(chart.renderToSVGString());

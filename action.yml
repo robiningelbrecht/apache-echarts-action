@@ -10,6 +10,10 @@ inputs:
   height:
     description: height of the SVG
     required: true
+  pass-options-as:
+    description: the way you want to pass the options, "string", "uri" or "file"
+    required: true
+    default: string
   chart-option:
     description: the chart options, see https://echarts.apache.org/handbook/en/get-started/
     required: true
