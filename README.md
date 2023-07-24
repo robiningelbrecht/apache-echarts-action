@@ -9,9 +9,14 @@ TODO
 ## Example usage
 
 ```yaml
-uses: robiningelbrecht/apache-echarts-action
-with:
+- name: Generate chart
+  id: chart
+  uses: robiningelbrecht/apache-echarts-action
+  with:
     width: 1000
     height: 300
     chart-option: 'valid JSON string or URI to valid JSON'
+
+- name: Display generated SVG
+  run: echo "${{ steps.chart.outputs.svg }}"
 ```
