@@ -21,4 +21,4 @@ jobs:
         with:
           width: 1000
           height: 300
-          chart-option: 'https://raw.githubusercontent.com/robiningelbrecht/strava-activities/master/build/chart.json'
+          chart-option: 'https://raw.githubusercontent.com/robiningelbrecht/apache-echarts-action/master/example.json'
