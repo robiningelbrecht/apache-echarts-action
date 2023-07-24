@@ -105333,7 +105333,7 @@ const run = async () => {
             return;
         }
         chartOptions = JSON.parse(chartOptions);
-    } else if (passOptionsAs === 'url') {
+    } else if (passOptionsAs === 'uri') {
         if (!isValidHttpUrl(chartOptions)) {
             core.error('Invalid URI for chartOptions');
             return;
