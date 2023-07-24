@@ -2,10 +2,32 @@ const core = require('@actions/core');
 const echarts = require('echarts');
 
 const width = core.getInput('width');
-const height =  core.getInput('height');
-const chartOption =  core.getInput('chart-option');
+const height = core.getInput('height');
+let chartOption = core.getInput('chart-option');
 
-const run = () => {
+const isValidHttpUrl = (str) => {
+    const pattern = new RegExp(
+        '^(https?:\\/\\/)?' + // protocol
+        '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|' + // domain name
+        '((\\d{1,3}\\.){3}\\d{1,3}))' + // OR ip (v4) address
+        '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*' + // port and path
+        '(\\?[;&a-z\\d%_.~+=-]*)?' + // query string
+        '(\\#[-a-z\\d_]*)?$', // fragment locator
+        'i'
+    );
+    return pattern.test(str);
+}
+
+const isValidJsonString = (str) => {
+    try {
+        JSON.parse(str);
+    } catch (e) {
+        return false;
+    }
+    return true;
+}
+
+const run = async () => {
     core.info('Generating SVG');
 
     const chart = echarts.init(null, null, {
@@ -14,6 +36,16 @@ const run = () => {
         width: width,
         height: height
     });
+
+    if (isValidHttpUrl(chartOption)) {
+        const response = await fetch(chartOption);
+        chartOption = await response.json();
+    }
+
+    if (!isValidJsonString(chartOption)) {
+        core.error('Invalid JSON for chartOption');
+    }
+
     chart.setOption(JSON.parse(chartOption));
     core.setOutput('svg', chart.renderToSVGString());
 
@@ -22,4 +54,5 @@ const run = () => {
     core.info('Done');
     process.exit(0);
 }
+
 run();

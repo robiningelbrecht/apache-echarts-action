@@ -13,5 +13,5 @@ uses: robiningelbrecht/apache-echarts-action
 with:
     width: 1000
     height: 300
-    chart-option: ''
+    chart-option: 'valid JSON string or URI to valid JSON'
 ```
