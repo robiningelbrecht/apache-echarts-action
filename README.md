@@ -31,6 +31,9 @@ Check https://echarts.apache.org/handbook/en/get-started/ for more info
     height: 300
     chart-option: 'valid JSON string or URI to valid JSON'
 
-- name: Display generated SVG
-  run: echo "${{ steps.chart.outputs.svg }}"
+- name: Save generated SVG
+  run: |
+  cat <<EOF > chart.svg
+  ${{ steps.chart.outputs.svg }}
+  EOF
 ```
