@@ -1,5 +1,6 @@
 const core = require('@actions/core');
 const echarts = require('echarts');
+const axios = require('axios');
 
 const width = core.getInput('width');
 const height = core.getInput('height');
@@ -38,15 +39,14 @@ const run = async () => {
     });
 
     if (isValidHttpUrl(chartOption)) {
-        const response = await fetch(chartOption);
-        chartOption = await response.json();
-    }
-
-    if (!isValidJsonString(chartOption)) {
+        const response = await axios({method: 'GET', url: chartOption});
+        chartOption = await response.data;
+    } else if (!isValidJsonString(chartOption)) {
         core.error('Invalid JSON for chartOption');
+        chartOption = JSON.parse(chartOption);
     }
 
-    chart.setOption(JSON.parse(chartOption));
+    chart.setOption(chartOption);
     core.setOutput('svg', chart.renderToSVGString());
 
     core.info(chart.renderToSVGString());

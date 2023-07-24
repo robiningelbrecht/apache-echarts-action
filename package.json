@@ -25,6 +25,7 @@
   "homepage": "https://github.com/robiningelbrecht/apache-echarts-action#readme",
   "dependencies": {
     "@actions/core": "^1.10.0",
+    "axios": "^1.4.0",
     "echarts": "^5.4.3"
   }
 }
