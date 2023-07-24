@@ -41,9 +41,10 @@ const run = async () => {
     if (isValidHttpUrl(chartOption)) {
         const response = await axios({method: 'GET', url: chartOption});
         chartOption = await response.data;
-    } else if (!isValidJsonString(chartOption)) {
-        core.error('Invalid JSON for chartOption');
+    } else if (isValidJsonString(chartOption)) {
         chartOption = JSON.parse(chartOption);
+    } else {
+        core.error('Invalid JSON for chartOption');
     }
 
     chart.setOption(chartOption);
