@@ -4,7 +4,21 @@ Render server-side Apache Echarts using GitHub Action workflow
 
 ## Inputs
 
-TODO
+### `width`
+
+**Required** Width of the SVG
+
+### `height`
+
+**Required** Height of the SVG
+
+### `chart-option`
+
+**Required** The chart options, can be one od
+* Valid JSON string 
+* URI to valid JSON
+
+Check https://echarts.apache.org/handbook/en/get-started/ for more info
 
 ## Example usage
 

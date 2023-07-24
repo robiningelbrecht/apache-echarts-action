@@ -105334,12 +105334,16 @@ const run = async () => {
         core.error('Invalid JSON for chartOption');
     }
 
-    chart.setOption(chartOption);
-    core.setOutput('svg', chart.renderToSVGString());
+    try{
+        chart.setOption(chartOption);
+        core.setOutput('svg', chart.renderToSVGString());
+    } catch (e) {
+        core.error(e);
+    }
 
     core.info(chart.renderToSVGString());
-
     core.info('Done');
+
     process.exit(0);
 }
 
