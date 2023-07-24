@@ -33,7 +33,7 @@ Check https://echarts.apache.org/handbook/en/get-started/ for more info
 ```yaml
 - name: Generate chart
   id: chart
-  uses: robiningelbrecht/apache-echarts-action@v1.0.0
+  uses: robiningelbrecht/apache-echarts-action@v1.1.0
   with:
     width: 1000
     height: 300
